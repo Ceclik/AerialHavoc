@@ -1,15 +1,23 @@
+using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
 public  class EnergyDecreaser : MonoBehaviour
 {
+    [SerializeField] private float deltaDecreasingTime;
+    [SerializeField] private int periodicDecreaseValue;
+    private PhotonView _view; 
+    
     private GameObject _energyBar;
     private Player _player;
 
     private void Awake()
     {
+        _view = GetComponent<PhotonView>();
         _energyBar = GameObject.Find("EnergyBar");
         _player = GetComponent<Player>();
+        StartCoroutine(PeriodicEnergyDecreaser());
     }
 
     public void DecreaseValue(int subtrahend)
@@ -31,5 +39,17 @@ public  class EnergyDecreaser : MonoBehaviour
             );
         }
         else _energyBar.SetActive(false);
+    }
+
+    private IEnumerator PeriodicEnergyDecreaser()
+    {
+        while (true)
+        {
+            if (_view.IsMine)
+            {
+                yield return new WaitForSeconds(deltaDecreasingTime);
+                DecreaseValue(periodicDecreaseValue);
+            }
+        }
     }
 }
