@@ -24,6 +24,8 @@ public class EnemyDestroyer : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerBullet>(out PlayerBullet bullet))
             _view.RPC("DestroyEnemy", RpcTarget.MasterClient);
+        if(other.TryGetComponent<Player>(out Player player))
+            _view.RPC("DestroyEnemy", RpcTarget.MasterClient);
     }
 
     [PunRPC]

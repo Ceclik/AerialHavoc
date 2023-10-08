@@ -18,22 +18,14 @@ public class MentalHealthDecreaser : MonoBehaviour
         _startXScale = _mentalHealthBar.transform.localScale.x;
         _player = GetComponent<Player>();
     }
-
-    public void DecreaseValue(int subtrahend)
-    {
-        _player.MentalHealth -= subtrahend;
-        if (_player.MentalHealth <= 0)
-            _mentalHealthBar.SetActive(false);
-        
-    }
     
     private void Update()
     {
         if (_view.IsMine)
         {
-            float deltaEnergy = 100 - _player.Energy;
-            float newXPos = _startXPos - deltaEnergy * 0.027f;
-            float newXScale = _startXScale - deltaEnergy * 0.055f;
+            float deltaMentalHealth = 100 - _player.MentalHealth;
+            float newXPos = _startXPos - deltaMentalHealth * 0.027f;
+            float newXScale = _startXScale - deltaMentalHealth * 0.055f;
 
             _mentalHealthBar.transform.position = new Vector3
             (
@@ -48,5 +40,7 @@ public class MentalHealthDecreaser : MonoBehaviour
                 _mentalHealthBar.transform.localScale.z
             );
         }
+        if (_player.MentalHealth <= 0)
+            _mentalHealthBar.SetActive(false);
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -7374974998783997356}
   - component: {fileID: 5096783082126611247}
   - component: {fileID: -1005504192946907604}
+  - component: {fileID: -200727112579908932}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -206,6 +207,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deltaDestroyTimeIfNotKilled: 5
+--- !u!114 &-200727112579908932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315777623347919119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f915bb556a65be4998d8526da382a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBullet: {fileID: 5995478133760169440, guid: b86c2ee2b7a952a41a3b0e923337dd4e, type: 3}
+  shootingDeltaTime: 0.5
 --- !u!1 &2178768308556602770
 GameObject:
   m_ObjectHideFlags: 0
