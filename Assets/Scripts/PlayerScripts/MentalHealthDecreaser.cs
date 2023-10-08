@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
-public  class MentalHealthDecreaser : MonoBehaviour
+public class MentalHealthDecreaser : MonoBehaviour
 {
     private GameObject _mentalHealthBar;
     private Player _player;
@@ -17,17 +17,17 @@ public  class MentalHealthDecreaser : MonoBehaviour
         _player.MentalHealth -= subtrahend;
         if (_player.MentalHealth >= 0)
         {
-            _mentalHealthBar.GetComponent<Transform>().position = new Vector3
+            _mentalHealthBar.transform.position = new Vector3
             (
-                _mentalHealthBar.GetComponent<Transform>().position.x - (float)subtrahend * 0.027f,
-                _mentalHealthBar.GetComponent<Transform>().position.y,
-                _mentalHealthBar.GetComponent<Transform>().position.z
+                _mentalHealthBar.transform.position.x - (float)subtrahend * 0.027f,
+                _mentalHealthBar.transform.position.y,
+                _mentalHealthBar.transform.position.z
             );
-            _mentalHealthBar.GetComponent<Transform>().localScale = new Vector3
+            _mentalHealthBar.transform.localScale = new Vector3
             (
-                _mentalHealthBar.GetComponent<Transform>().localScale.x - subtrahend * 0.055f,
-                _mentalHealthBar.GetComponent<Transform>().localScale.y,
-                _mentalHealthBar.GetComponent<Transform>().localScale.z
+                _mentalHealthBar.transform.localScale.x - subtrahend * 0.055f,
+                _mentalHealthBar.transform.localScale.y,
+                _mentalHealthBar.transform.localScale.z
             );
         }
         else _mentalHealthBar.SetActive(false);

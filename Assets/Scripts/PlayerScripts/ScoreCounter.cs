@@ -12,7 +12,7 @@ public class ScoreCounter : MonoBehaviour
      {
           _score = FindObjectOfType<Text>();
           _player = GetComponent<Player>();
-          _view = _player.View;
+          _view = GetComponent<PhotonView>();
           if(_view.IsMine)
                _score.text = $"Score: {_player.Score}";
      }

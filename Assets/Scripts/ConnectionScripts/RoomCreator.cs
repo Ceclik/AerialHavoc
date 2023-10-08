@@ -16,7 +16,6 @@ public class RoomCreator : MonoBehaviourPunCallbacks
 
    public override void OnCreatedRoom()
    {
-      Debug.Log($"Room {roomNameField.text} successfully created!");
       PhotonNetwork.LoadLevel("Gameplay");  
    }
 }
