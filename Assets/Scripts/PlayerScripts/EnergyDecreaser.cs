@@ -13,6 +13,8 @@ public  class EnergyDecreaser : MonoBehaviour
     private GameObject _energyBar;
     private Player _player;
     private StartGameCondtions _game;
+    private float _startXPos;
+    private float _startXScale;
 
     private void Awake()
     {
@@ -20,6 +22,8 @@ public  class EnergyDecreaser : MonoBehaviour
         _view = GetComponent<PhotonView>();
         _energyBar = GameObject.Find("EnergyBar");
         _player = GetComponent<Player>();
+        _startXScale = _energyBar.transform.localScale.x;
+        _startXPos = _energyBar.transform.position.x;
         if(isDecreaseEnabled && _view.IsMine)
             StartCoroutine(PeriodicEnergyDecreaser());
     }
@@ -27,22 +31,31 @@ public  class EnergyDecreaser : MonoBehaviour
     public void DecreaseValue(int subtrahend)
     {
         _player.Energy -= subtrahend;
-        if (_player.Energy >= 0)
+        if(_player.Energy <= 0)
+            _energyBar.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (_view.IsMine)
         {
+            float deltaEnergy = 100 - _player.Energy;
+            float newXPos = _startXPos - deltaEnergy * 0.027f;
+            float newXScale = _startXScale - deltaEnergy * 0.055f;
+
             _energyBar.transform.position = new Vector3
             (
-                _energyBar.transform.position.x - (float)subtrahend * 0.027f,
+                newXPos,
                 _energyBar.transform.position.y,
                 _energyBar.transform.position.z
             );
             _energyBar.transform.localScale = new Vector3
             (
-                _energyBar.transform.localScale.x - subtrahend * 0.055f,
+                newXScale,
                 _energyBar.transform.localScale.y,
                 _energyBar.transform.localScale.z
             );
         }
-        else _energyBar.SetActive(false);
     }
 
     private IEnumerator PeriodicEnergyDecreaser()

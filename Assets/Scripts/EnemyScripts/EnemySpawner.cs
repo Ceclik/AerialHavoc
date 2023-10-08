@@ -37,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(deltaSpawnTime);
-            if (transform.childCount < maxAmountOfAliveEnemies && PhotonNetwork.IsMasterClient && game.IsStarted)
+            if (transform.childCount <= maxAmountOfAliveEnemies && PhotonNetwork.IsMasterClient && game.IsStarted)
             {
                 int newYPosition = Random.Range(-4, 5);
                 GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, new Vector3(7, newYPosition, 0),

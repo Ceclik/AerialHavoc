@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
         Energy = 100;
         Score = 0;
     }
-
+    
     private void Update()
     {
         if ((Energy <= 0 || MentalHealth <= 0) && debugDeathAllow)
