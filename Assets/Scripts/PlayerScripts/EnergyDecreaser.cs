@@ -20,7 +20,7 @@ public  class EnergyDecreaser : MonoBehaviour
         _view = GetComponent<PhotonView>();
         _energyBar = GameObject.Find("EnergyBar");
         _player = GetComponent<Player>();
-        if(isDecreaseEnabled && _view.IsMine && _game.IsStarted)
+        if(isDecreaseEnabled && _view.IsMine)
             StartCoroutine(PeriodicEnergyDecreaser());
     }
 
@@ -50,7 +50,8 @@ public  class EnergyDecreaser : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(deltaDecreasingTime);
-            DecreaseValue(periodicDecreaseValue);
+            if(_game.IsStarted)
+                DecreaseValue(periodicDecreaseValue);
         }
     }
 }
