@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd330103f2395c4ab8ec766262b6333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Energy: 0
   debugDeathAllow: 1
 --- !u!114 &-5613621820166452176
 MonoBehaviour:
