@@ -1,12 +1,20 @@
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class RoomVariantButton : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private Text roomNameText;
-    [SerializeField] private Text amountOfPlayersText;
+
+    private Text[] texsts;
+    private Text amountOfPlayersText;
+    private Text roomNameText;
+
+    private void Awake()
+    {
+        texsts = GetComponentsInChildren<Text>();
+        amountOfPlayersText = texsts[1];
+        roomNameText = texsts[0];
+    }
 
     public void SetInfo(RoomInfo info)
     {

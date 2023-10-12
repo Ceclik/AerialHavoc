@@ -12,19 +12,15 @@ public class ShowDeathMenu : MonoBehaviour
    {
       _view = GetComponent<PhotonView>();
       _player = GetComponent<Player>();
-      if (_view.IsMine)
-      {
-         _deathScreen = GameObject.Find("DeathScreenBackground");
-         _deathScreen.SetActive(false);
-      }
    }
 
    private void Update()
    {
       if (!_player.IsAlive && _view.IsMine)
       {
-         _deathScreen.SetActive(true);
-         _player.gameObject.SetActive(false);
+         PhotonNetwork.Destroy(gameObject);
+         PhotonNetwork.LeaveRoom();
+         PhotonNetwork.LoadLevel("LoseScreen");
       }
    }
 }

@@ -22,14 +22,11 @@ public class EnemyShooter : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(shootingDeltaTime);
-            _view.RPC("SpawnEnemyBullet", RpcTarget.MasterClient, transform.position, firstBulletRotation);
-            _view.RPC("SpawnEnemyBullet", RpcTarget.MasterClient, transform.position, secondBulletRotation);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(enemyBullet.name, transform.position, firstBulletRotation);
+                PhotonNetwork.Instantiate(enemyBullet.name, transform.position, secondBulletRotation);
+            }
         }
-    }
-
-    [PunRPC]
-    public void SpawnEnemyBullet(Vector3 spawnPosition, Quaternion spawnRotation)
-    {
-        PhotonNetwork.Instantiate(enemyBullet.name, spawnPosition, spawnRotation);
     }
 }

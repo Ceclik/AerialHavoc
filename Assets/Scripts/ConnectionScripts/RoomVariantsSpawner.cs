@@ -6,14 +6,20 @@ using UnityEngine;
 public class RoomVariantsSpawner : MonoBehaviourPunCallbacks
 {
     [SerializeField] private RoomVariantButton roomVariantButton;
-    [SerializeField] private Transform content;
+    private RectTransform[] _spawnedRoomButtons;
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        _spawnedRoomButtons = transform.GetComponentsInChildren<RectTransform>();
+        for(int i = 1; i < _spawnedRoomButtons.Length; i++)
+            Destroy(_spawnedRoomButtons[i].gameObject);
         foreach (var info in roomList)
         {
-            RoomVariantButton spawnedItem = Instantiate(roomVariantButton, content);
-            if(spawnedItem != null)
-                spawnedItem.SetInfo(info);
+            if (info.MaxPlayers > 2)
+            {
+                RoomVariantButton spawnedItem = Instantiate(roomVariantButton, transform);
+                if (spawnedItem != null)
+                    spawnedItem.SetInfo(info);
+            }
         }
     }
 }
