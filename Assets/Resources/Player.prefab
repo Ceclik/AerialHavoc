@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: -6177218848509070843}
   - component: {fileID: -5613621820166452176}
   - component: {fileID: 515876537730084406}
-  - component: {fileID: 3119154169290153582}
   - component: {fileID: 2559716826858152762}
   - component: {fileID: 6072998062795934273}
   - component: {fileID: -7549051589381040274}
@@ -23,6 +22,7 @@ GameObject:
   - component: {fileID: -5550983283859904948}
   - component: {fileID: 1447072812950627416}
   - component: {fileID: 6104461922139883878}
+  - component: {fileID: -3623567639584853694}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd330103f2395c4ab8ec766262b6333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Energy: 0
   debugDeathAllow: 1
 --- !u!114 &-5613621820166452176
 MonoBehaviour:
@@ -175,18 +176,6 @@ MonoBehaviour:
   deltaDecreasingTime: 3
   periodicDecreaseValue: 3
   isDecreaseEnabled: 1
---- !u!114 &3119154169290153582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52553087552047135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4129406ce58207e448c181ba4ad5b2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2559716826858152762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +283,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletHealthDecreaseValue: 10
   enemyHealthDecreaseValue: 30
+--- !u!114 &-3623567639584853694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52553087552047135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57a27e0c5fd4404ebd304a1bc5fc515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5799682811688436361
 GameObject:
   m_ObjectHideFlags: 0
