@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd330103f2395c4ab8ec766262b6333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugDeathAllow: 1
+  debugDeathAllow: 0
 --- !u!114 &-5613621820166452176
 MonoBehaviour:
   m_ObjectHideFlags: 0

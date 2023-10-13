@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class PlayerMover : MonoBehaviour
     private Vector2 _startTouchPosition;
     private Vector2 _currentTouchPosition;
     private float _deltaYTouchPosition;
+    private float _deltaXTouchPosition;
 
     private void Awake()
     {
@@ -42,7 +44,7 @@ public class PlayerMover : MonoBehaviour
 
     private void MoveUsingTouch()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began && _view.IsMine)
                 BeganPhase();
@@ -67,8 +69,10 @@ public class PlayerMover : MonoBehaviour
         {
             _deltaYTouchPosition = _camera.ScreenToWorldPoint(_currentTouchPosition).y -
                                    _camera.ScreenToWorldPoint(_startTouchPosition).y;
+            _deltaXTouchPosition = _camera.ScreenToWorldPoint(_currentTouchPosition).x -
+                                   _camera.ScreenToWorldPoint(_startTouchPosition).x;
             float newYPosition = _startPlayerPosition.y + _deltaYTouchPosition;
-            if(newYPosition <= maxYPosition && newYPosition >= minYPosition)
+            if(newYPosition <= maxYPosition && newYPosition >= minYPosition && Math.Abs(_deltaXTouchPosition) < 2)
                 transform.position =
                     new Vector3(transform.position.x, newYPosition, 0.0f);
         }
