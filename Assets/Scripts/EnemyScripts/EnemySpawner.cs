@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private List<GameObject> enemiesVariants;
     [SerializeField] private float deltaSpawnTime;
     [SerializeField] private float deltaSpawnTimeDecreaseValue;
     [SerializeField] private int howOftenDecreaseDeltaSpawnTime;
@@ -13,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] StartGameCondtions game;
     private float _runningTime;
     private int _targetRunningTime;
+    private GameObject spawnedEnemy;
 
     private void Update()
     {
@@ -40,7 +42,9 @@ public class EnemySpawner : MonoBehaviour
             if (transform.childCount <= maxAmountOfAliveEnemies && PhotonNetwork.IsMasterClient && game.IsStarted)
             {
                 int newYPosition = Random.Range(-4, 5);
-                GameObject spawnedEnemy = PhotonNetwork.Instantiate(enemy.name, new Vector3(7, newYPosition, 0),
+                int enemyChoice = Random.Range(0, enemiesVariants.Count);
+                spawnedEnemy = PhotonNetwork.Instantiate(enemiesVariants[enemyChoice].name,
+                    new Vector3(7, newYPosition, 0),
                     Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)));
                 spawnedEnemy.transform.SetParent(transform);
             }

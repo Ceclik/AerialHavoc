@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -487902714127595756}
   - component: {fileID: -3778756110145046104}
   m_Layer: 0
-  m_Name: HealthBonus
+  m_Name: SomeHealthBonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1417119719051616976
 SpriteRenderer:
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.9490197, a: 1}
+  m_Color: {r: 0.07048772, g: 0.4528302, b: 0.43333825, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
