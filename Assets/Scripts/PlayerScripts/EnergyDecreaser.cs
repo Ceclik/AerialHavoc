@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public  class EnergyDecreaser : MonoBehaviour
 {
-    [SerializeField] private float deltaDecreasingTime;
-    [SerializeField] private int periodicDecreaseValue;
+    [SerializeField] private float decreasePeriod;
+    [SerializeField] private int decreaseValue;
     [SerializeField] private bool isDecreaseEnabled;
     private PhotonView _view; 
     
@@ -26,9 +26,9 @@ public  class EnergyDecreaser : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(deltaDecreasingTime);
+            yield return new WaitForSeconds(decreasePeriod);
             if (_game.IsStarted)
-                _player.Energy -= periodicDecreaseValue;
+                _player.Energy -= decreaseValue;
         }
     }
 }

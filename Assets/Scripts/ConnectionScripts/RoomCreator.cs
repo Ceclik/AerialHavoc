@@ -8,6 +8,7 @@ public class RoomCreator : MonoBehaviourPunCallbacks
    [SerializeField] private InputField roomNameField;
    [SerializeField] private Color targetColorToWrongTextField;
    [SerializeField] private Text errorText;
+   [SerializeField] private int maxPlayerAmount;
    private bool _isErrorShown = false;
 
    public void OnCreateButtonClick()
@@ -21,7 +22,7 @@ public class RoomCreator : MonoBehaviourPunCallbacks
             errorText.enabled = false;
          }
          RoomOptions roomOptions = new RoomOptions();
-         roomOptions.MaxPlayers = 4;
+         roomOptions.MaxPlayers = maxPlayerAmount;
          PhotonNetwork.CreateRoom(roomNameField.text, roomOptions);
       }
       else

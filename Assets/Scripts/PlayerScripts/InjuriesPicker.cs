@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class InjuriesPicker : MonoBehaviour
 {
-    [SerializeField] private int bulletHealthDecreaseValue;
-    [SerializeField] private int enemyHealthDecreaseValue;
+    [SerializeField] private int decreaseValueFromBullet;
+    [SerializeField] private int decreaseValueFromEnemy;
     private Player _player;
 
     private void Awake()
@@ -14,8 +14,8 @@ public class InjuriesPicker : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<EnemyBullet>(out EnemyBullet bullet))
-            _player.MentalHealth -= bulletHealthDecreaseValue;
+            _player.MentalHealth -= decreaseValueFromBullet;
         if(other.TryGetComponent<EnemyMover>(out EnemyMover mover))
-            _player.MentalHealth -= enemyHealthDecreaseValue;
+            _player.MentalHealth -= decreaseValueFromEnemy;
     }
 }

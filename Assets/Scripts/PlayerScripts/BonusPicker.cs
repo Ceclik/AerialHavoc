@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class BonusPicker : MonoBehaviour
 {
-    [SerializeField] private int energyIncrease;
-    [SerializeField] private int mentalHealthIncrease;
+    [SerializeField] private int increaseHealthValueFromPillow;
+    [SerializeField] private int increaseEnergyValueFromCoffee;
+    [SerializeField] private int increaseEnergyValueFromSpotify;
+    
     private Player _player;
     private PhotonView _view;
 
@@ -16,32 +18,38 @@ public class BonusPicker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<EnergyBonus>(out EnergyBonus bonus) && _view.IsMine)
+        if (other.name == "Pillow(Clone)")
         {
-            SetEnergy();
+            SetMentalHealth(increaseHealthValueFromPillow);
             other.GetComponent<BonusDestroyer>().DestroyWhenHit();
         }
 
-        if (other.TryGetComponent<MentalHealthBonus>(out MentalHealthBonus mbonus) && _view.IsMine)
+        if (other.name == "Spotify(Clone)")
         {
-            SetMentalHealth();
+            SetEnergy(increaseEnergyValueFromSpotify);
+            other.GetComponent<BonusDestroyer>().DestroyWhenHit();
+        }
+
+        if (other.name == "CoffeeCup(Clone)")
+        {
+            SetEnergy(increaseEnergyValueFromCoffee);
             other.GetComponent<BonusDestroyer>().DestroyWhenHit();
         }
     }
 
-    private void SetEnergy()
+    private void SetEnergy(int value)
     {
-        if (_player.Energy + energyIncrease > 100)
+        if (_player.Energy + value > 100)
             _player.Energy = 100;
         else
-            _player.Energy += energyIncrease;
+            _player.Energy += value;
     }
 
-    private void SetMentalHealth()
+    private void SetMentalHealth(int value)
     {
-        if (_player.MentalHealth + mentalHealthIncrease > 100)
+        if (_player.MentalHealth + value > 100)
             _player.MentalHealth = 100;
         else
-            _player.MentalHealth += mentalHealthIncrease;
+            _player.MentalHealth += value;
     }
 }

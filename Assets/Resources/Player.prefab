@@ -147,7 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd330103f2395c4ab8ec766262b6333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugDeathAllow: 1
+  debugDeathAllow: 0
+  thirdPlaceRatingDecreaseValue: 20
+  firstPlaceRatingIncreaseValue: 20
 --- !u!114 &-5613621820166452176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,8 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e891dd8338d974db3fb9cf42a64cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaDecreasingTime: 3
-  periodicDecreaseValue: 3
+  decreasePeriod: 3
+  decreaseValue: 3
   isDecreaseEnabled: 1
 --- !u!114 &2559716826858152762
 MonoBehaviour:
@@ -266,8 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9a9e14a17af334eaba47b86152b62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyIncrease: 15
-  mentalHealthIncrease: 15
+  increaseHealthValueFromPillow: 15
+  increaseEnergyValueFromCoffee: 15
+  increaseEnergyValueFromSpotify: 15
 --- !u!114 &6104461922139883878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,8 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edc6fc00c207944785c9304a01926d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletHealthDecreaseValue: 10
-  enemyHealthDecreaseValue: 30
+  decreaseValueFromBullet: 10
+  decreaseValueFromEnemy: 30
 --- !u!114 &-3623567639584853694
 MonoBehaviour:
   m_ObjectHideFlags: 0
