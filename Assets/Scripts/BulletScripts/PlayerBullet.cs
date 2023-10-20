@@ -33,7 +33,7 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<EnemyMover>(out EnemyMover mover))
+        if (other.TryGetComponent<EnemyMover>(out EnemyMover mover) || other.TryGetComponent<Kukin>(out Kukin dmitro))
             _view.RPC("DestroyBullet", RpcTarget.MasterClient);
     }
 

@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   increaseHealthValueFromPillow: 15
+  increaseHealthBonusFromPancake: 0
   increaseEnergyValueFromCoffee: 15
   increaseEnergyValueFromSpotify: 15
 --- !u!114 &6104461922139883878
@@ -285,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   decreaseValueFromBullet: 10
   decreaseValueFromEnemy: 30
+  bloodEffectDuration: 1.5
 --- !u!114 &-3623567639584853694
 MonoBehaviour:
   m_ObjectHideFlags: 0

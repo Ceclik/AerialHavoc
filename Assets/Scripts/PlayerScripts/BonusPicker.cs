@@ -4,6 +4,7 @@ using UnityEngine;
 public class BonusPicker : MonoBehaviour
 {
     [SerializeField] private int increaseHealthValueFromPillow;
+    [SerializeField] private int increaseHealthBonusFromPancake;
     [SerializeField] private int increaseEnergyValueFromCoffee;
     [SerializeField] private int increaseEnergyValueFromSpotify;
     
@@ -33,6 +34,11 @@ public class BonusPicker : MonoBehaviour
         if (other.name == "CoffeeCup(Clone)")
         {
             SetEnergy(increaseEnergyValueFromCoffee);
+            other.GetComponent<BonusDestroyer>().DestroyWhenHit();
+        }
+        if (other.name == "Pancake(Clone)")
+        {
+            SetEnergy(increaseHealthBonusFromPancake);
             other.GetComponent<BonusDestroyer>().DestroyWhenHit();
         }
     }

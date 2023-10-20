@@ -6,32 +6,38 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> enemiesVariants;
+    [SerializeField] private GameObject kukin;
     [SerializeField] private float deltaSpawnTime;
     [SerializeField] private float deltaSpawnTimeDecreaseValue;
-    [SerializeField] private int howOftenDecreaseDeltaSpawnTime;
+    [SerializeField] public int howOftenDecreaseDeltaSpawnTime;
     [SerializeField] private float minimalDeltaSpawnTime;
     [SerializeField] private int maxAmountOfAliveEnemies;
     [SerializeField] StartGameCondtions game;
-    private float _runningTime;
-    private int _targetRunningTime;
-    private GameObject spawnedEnemy;
+    [SerializeField] private float deltaBossFightTime;
+    [HideInInspector] public float RunningTime { get; set; }
+    [HideInInspector] public int TargetRunningTime { get; set; }
+    private GameObject _spawnedEnemy;
+
+    public bool IsBossFight { get; set; }
 
     private void Update()
     {
-        _runningTime += Time.deltaTime;
+        RunningTime += Time.deltaTime;
         if (deltaSpawnTime < minimalDeltaSpawnTime)
             deltaSpawnTime = minimalDeltaSpawnTime;
-        if (_runningTime > _targetRunningTime && deltaSpawnTime > minimalDeltaSpawnTime)
+        if (RunningTime > TargetRunningTime && deltaSpawnTime > minimalDeltaSpawnTime)
         {
-            _targetRunningTime += howOftenDecreaseDeltaSpawnTime;
+            TargetRunningTime += howOftenDecreaseDeltaSpawnTime;
             deltaSpawnTime -= deltaSpawnTimeDecreaseValue;
         }
     }
     private void Awake()
     {
-        _targetRunningTime = howOftenDecreaseDeltaSpawnTime;
-        _runningTime = 0;
+        IsBossFight = false;
+        TargetRunningTime = howOftenDecreaseDeltaSpawnTime;
+        RunningTime = 0;
         StartCoroutine(Spawner());
+        StartCoroutine(BossSpawner());
     }
 
     private IEnumerator Spawner()
@@ -39,14 +45,27 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(deltaSpawnTime);
-            if (transform.childCount <= maxAmountOfAliveEnemies && PhotonNetwork.IsMasterClient && game.IsStarted)
+            if (transform.childCount <= maxAmountOfAliveEnemies && PhotonNetwork.IsMasterClient && game.IsStarted && !IsBossFight)
             {
                 int newYPosition = Random.Range(-4, 5);
                 int enemyChoice = Random.Range(0, enemiesVariants.Count);
-                spawnedEnemy = PhotonNetwork.Instantiate(enemiesVariants[enemyChoice].name,
+                _spawnedEnemy = PhotonNetwork.Instantiate(enemiesVariants[enemyChoice].name,
                     new Vector3(7, newYPosition, 0),
                     Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)));
-                spawnedEnemy.transform.SetParent(transform);
+                _spawnedEnemy.transform.SetParent(transform);
+            }
+        }
+    }
+
+    private IEnumerator BossSpawner()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(deltaBossFightTime);
+            if (PhotonNetwork.IsMasterClient && game.IsStarted && !IsBossFight)
+            {
+                IsBossFight = true;
+                PhotonNetwork.Instantiate(kukin.name, new Vector3(7.0f, 0.0f, 0.0f), Quaternion.identity);
             }
         }
     }
