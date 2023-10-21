@@ -1,10 +1,12 @@
 using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 public class InjuriesPicker : MonoBehaviour
 {
     [SerializeField] private int decreaseValueFromBullet;
     [SerializeField] private int decreaseValueFromEnemy;
+    [SerializeField] private int decreaseValueFromKukin;
     [SerializeField] private float bloodEffectDuration;
     private GameObject _bloodEffect;
     private Player _player;
@@ -13,7 +15,8 @@ public class InjuriesPicker : MonoBehaviour
     {
         _player = GetComponent<Player>();
         _bloodEffect = GameObject.Find("BloodEffect");
-        _bloodEffect.SetActive(false);
+        if(GetComponent<PhotonView>().IsMine)
+            _bloodEffect.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -25,6 +28,13 @@ public class InjuriesPicker : MonoBehaviour
             _player.MentalHealth -= decreaseValueFromEnemy;
             StartCoroutine(BloodEffectRunner());
         }
+
+        if (other.TryGetComponent<KukinBullet>(out KukinBullet kb))
+        {
+            _player.MentalHealth -= decreaseValueFromKukin;
+            _player.Energy -= decreaseValueFromKukin;
+        }
+
     }
 
     private IEnumerator BloodEffectRunner()

@@ -4,13 +4,25 @@ using UnityEngine;
 public class PlayerSpawner : MonoBehaviour
 {
    [SerializeField] private GameObject player;
-   public bool IsGameStarted { get; private set; }
+   [SerializeField] private RuntimeAnimatorController tatiana;
+   [SerializeField] private RuntimeAnimatorController yurii;
+   [SerializeField] private RuntimeAnimatorController emily;
 
-   private void Start()
+   private void Awake()
    {
-      IsGameStarted = false;
-      GameObject spawnedPlayer = PhotonNetwork.Instantiate(player.name, new Vector3(-6.5f, 0, 0), Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)));
+      GameObject spawnedPlayer = PhotonNetwork.Instantiate(player.name, player.transform.position, Quaternion.identity);
       if (spawnedPlayer.GetComponent<PhotonView>().IsMine)
-         spawnedPlayer.GetComponent<SpriteRenderer>().color = Color.green;
+         spawnedPlayer.GetComponent<Animator>().runtimeAnimatorController = tatiana;
+      else
+      {
+         if (transform.childCount == 2)
+         {
+            spawnedPlayer.GetComponent<Animator>().runtimeAnimatorController = yurii;
+            spawnedPlayer.GetComponent<Animator>().Play("Yurii");
+         }
+
+         if (transform.childCount == 3)
+            spawnedPlayer.GetComponent<Animator>().runtimeAnimatorController = emily;
+      }
    }
 }

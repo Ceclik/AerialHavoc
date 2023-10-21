@@ -42,7 +42,7 @@ public class Shooter : MonoBehaviour
                 if (hittedObject.TryGetComponent<EnemyMover>(out EnemyMover mover))
                     _scoreCounter.AddScore(20);
             }
-            _view.RPC("SpawnBullet", RpcTarget.MasterClient, spawnPosition, transform.rotation);
+            _view.RPC("SpawnBullet", RpcTarget.MasterClient, spawnPosition, Quaternion.Euler(0.0f, 0.0f, -90.0f));
         }
     }
 

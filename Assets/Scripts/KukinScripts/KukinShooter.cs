@@ -6,11 +6,9 @@ public class KukinShooter : MonoBehaviour
 {
     [SerializeField] private GameObject enemyBullet;
     [SerializeField] private float shootingDeltaTime;
-    private Quaternion bulletRotation;
     private PhotonView _view;
     private void Start()
     {
-        bulletRotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
         _view = GetComponent<PhotonView>();
         StartCoroutine(Shooter());
     }
@@ -22,7 +20,7 @@ public class KukinShooter : MonoBehaviour
             yield return new WaitForSeconds(shootingDeltaTime);
             if (PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.Instantiate(enemyBullet.name, transform.position, bulletRotation);
+                PhotonNetwork.Instantiate(enemyBullet.name, transform.position, Quaternion.identity);
             }
         }
     }
