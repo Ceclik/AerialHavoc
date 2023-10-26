@@ -14,13 +14,13 @@ public class ScoreCounter : MonoBehaviour
           _player = GetComponent<Player>();
           _view = GetComponent<PhotonView>();
           if(_view.IsMine)
-               _score.text = $"Score: {_player.Score}";
+               _score.text = $"Очки: {_player.Score}";
      }
 
      public void AddScore(int addValue)
      {
           _player.Score += addValue;
           if(_view.IsMine)
-               _score.text = $"Score: {_player.Score}";
+               _score.text = $"Очки: {_player.Score}";
      }
 }

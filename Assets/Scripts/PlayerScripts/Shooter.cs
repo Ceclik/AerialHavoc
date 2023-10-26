@@ -6,6 +6,7 @@ public class Shooter : MonoBehaviour
 {
     [SerializeField] private GameObject playerBullet;
     [SerializeField] private float reloadTime;
+    [SerializeField] private AudioSource shootSound;
     private ScoreCounter _scoreCounter;
     private Button[] _buttons;
     private Button _shootButton;
@@ -42,6 +43,7 @@ public class Shooter : MonoBehaviour
                 if (hittedObject.TryGetComponent<EnemyMover>(out EnemyMover mover))
                     _scoreCounter.AddScore(20);
             }
+            shootSound.Play();
             _view.RPC("SpawnBullet", RpcTarget.MasterClient, spawnPosition, Quaternion.Euler(0.0f, 0.0f, -90.0f));
         }
     }

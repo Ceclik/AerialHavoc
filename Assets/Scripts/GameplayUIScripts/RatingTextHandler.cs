@@ -8,6 +8,6 @@ public class RatingTextHandler : MonoBehaviour
 
     private void Awake()
     {
-        ratingText.text = $"Rating: {PlayerPrefs.GetInt("Rating", 100)}";
+        ratingText.text = $"Репутация: {PlayerPrefs.GetInt("Rating", 100)}";
     }
 }

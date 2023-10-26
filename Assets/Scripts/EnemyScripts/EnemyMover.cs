@@ -13,6 +13,6 @@ public class EnemyMover : MonoBehaviour
 
    private void FixedUpdate()
    {
-       transform.Translate(0.0f, movingSpeed * Time.deltaTime, 0.0f);
+       transform.Translate(-movingSpeed * Time.deltaTime, 0.0f, 0.0f);
    }
 }

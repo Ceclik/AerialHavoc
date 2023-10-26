@@ -14,14 +14,24 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int maxAmountOfAliveEnemies;
     [SerializeField] StartGameCondtions game;
     [SerializeField] private float deltaBossFightTime;
+    [SerializeField] private AudioSource soundTrack;
+    public AudioSource BossfightSoundtrack;
     [HideInInspector] public float RunningTime { get; set; }
     [HideInInspector] public int TargetRunningTime { get; set; }
     private GameObject _spawnedEnemy;
 
     public bool IsBossFight { get; set; }
+    private bool _isSoundtrackPlaying;
 
     private void Update()
     {
+        if (game.IsStarted && !IsBossFight && !_isSoundtrackPlaying)
+        {
+            soundTrack.Play();
+            _isSoundtrackPlaying = true;
+        }
+
+
         RunningTime += Time.deltaTime;
         if (deltaSpawnTime < minimalDeltaSpawnTime)
             deltaSpawnTime = minimalDeltaSpawnTime;
@@ -30,14 +40,18 @@ public class EnemySpawner : MonoBehaviour
             TargetRunningTime += howOftenDecreaseDeltaSpawnTime;
             deltaSpawnTime -= deltaSpawnTimeDecreaseValue;
         }
+        
+        
+        if(RunningTime > deltaBossFightTime && PhotonNetwork.IsMasterClient && game.IsStarted && !IsBossFight)
+            SpawnKukin();
     }
     private void Awake()
     {
+        _isSoundtrackPlaying = false;
         IsBossFight = false;
         TargetRunningTime = howOftenDecreaseDeltaSpawnTime;
         RunningTime = 0;
         StartCoroutine(Spawner());
-        StartCoroutine(BossSpawner());
     }
 
     private IEnumerator Spawner()
@@ -50,23 +64,20 @@ public class EnemySpawner : MonoBehaviour
                 int newYPosition = Random.Range(-4, 5);
                 int enemyChoice = Random.Range(0, enemiesVariants.Count);
                 _spawnedEnemy = PhotonNetwork.Instantiate(enemiesVariants[enemyChoice].name,
-                    new Vector3(7, newYPosition, 0),
-                    Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f)));
+                    new Vector3(10, newYPosition, 0),
+                    Quaternion.identity);
                 _spawnedEnemy.transform.SetParent(transform);
             }
         }
     }
 
-    private IEnumerator BossSpawner()
+    private void SpawnKukin()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(deltaBossFightTime);
-            if (PhotonNetwork.IsMasterClient && game.IsStarted && !IsBossFight)
-            {
-                IsBossFight = true;
-                PhotonNetwork.Instantiate(kukin.name, new Vector3(7.0f, 0.0f, 0.0f), Quaternion.identity);
-            }
-        }
+        _isSoundtrackPlaying = false;
+        soundTrack.Stop();
+        IsBossFight = true;
+        BossfightSoundtrack.Play();
+        BossfightSoundtrack.loop = true;
+        PhotonNetwork.Instantiate(kukin.name, new Vector3(7.0f, 0.0f, 0.0f), Quaternion.identity);
     }
 }

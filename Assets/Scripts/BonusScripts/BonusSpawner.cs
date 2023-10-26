@@ -26,7 +26,7 @@ public class BonusSpawner : MonoBehaviour
                 int indexOfBonusVariant = Random.Range(0, bonusVariants.Count);
                 int newYPosition = Random.Range(-4, 5);
                 GameObject spawnedBonus = PhotonNetwork.Instantiate(bonusVariants[indexOfBonusVariant].name,
-                    new Vector3(7, newYPosition, 0), Quaternion.identity);
+                    new Vector3(10, newYPosition, 0), Quaternion.identity);
                 spawnedBonus.transform.SetParent(transform);
             }
         }

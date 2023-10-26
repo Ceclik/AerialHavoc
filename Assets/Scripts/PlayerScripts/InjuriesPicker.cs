@@ -8,11 +8,14 @@ public class InjuriesPicker : MonoBehaviour
     [SerializeField] private int decreaseValueFromEnemy;
     [SerializeField] private int decreaseValueFromKukin;
     [SerializeField] private float bloodEffectDuration;
+    [SerializeField] private AudioSource hurtSound;
+    private PhotonView _view;
     private GameObject _bloodEffect;
     private Player _player;
 
     private void Awake()
     {
+        _view = GetComponent<PhotonView>();
         _player = GetComponent<Player>();
         _bloodEffect = GameObject.Find("BloodEffect");
         if(GetComponent<PhotonView>().IsMine)
@@ -21,20 +24,28 @@ public class InjuriesPicker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<EnemyBullet>(out EnemyBullet bullet))
-            _player.MentalHealth -= decreaseValueFromBullet;
-        if (other.TryGetComponent<EnemyMover>(out EnemyMover mover))
+        if (_view.IsMine)
         {
-            _player.MentalHealth -= decreaseValueFromEnemy;
-            StartCoroutine(BloodEffectRunner());
-        }
+            if (other.TryGetComponent<EnemyBullet>(out EnemyBullet bullet))
+            {
+                hurtSound.Play();
+                _player.MentalHealth -= decreaseValueFromBullet;
+            }
 
-        if (other.TryGetComponent<KukinBullet>(out KukinBullet kb))
-        {
-            _player.MentalHealth -= decreaseValueFromKukin;
-            _player.Energy -= decreaseValueFromKukin;
-        }
+            if (other.TryGetComponent<EnemyMover>(out EnemyMover mover))
+            {
+                hurtSound.Play();
+                _player.MentalHealth -= decreaseValueFromEnemy;
+                StartCoroutine(BloodEffectRunner());
+            }
 
+            if (other.TryGetComponent<KukinBullet>(out KukinBullet kb))
+            {
+                hurtSound.Play();
+                _player.MentalHealth -= decreaseValueFromKukin;
+                _player.Energy -= decreaseValueFromKukin;
+            }
+        }
     }
 
     private IEnumerator BloodEffectRunner()

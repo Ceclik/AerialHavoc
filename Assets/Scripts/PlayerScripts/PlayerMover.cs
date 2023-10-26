@@ -21,7 +21,7 @@ public class PlayerMover : MonoBehaviour
     {
         _isMobile = Application.isMobilePlatform;
         _view = GetComponent<PhotonView>();
-        _camera = FindObjectOfType<Camera>();
+        _camera = GameObject.Find("ControlCamera").GetComponent<Camera>();
     }
 
     private void Update()

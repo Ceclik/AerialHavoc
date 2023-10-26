@@ -18,6 +18,7 @@ public class KukinDestroyer : MonoBehaviour
     {
         if (_dmitro.Health <= 0)
         {
+            _enemySpawner.BossfightSoundtrack.Stop();
             _enemySpawner.RunningTime = 0;
             _enemySpawner.TargetRunningTime = _enemySpawner.howOftenDecreaseDeltaSpawnTime;
             _enemySpawner.IsBossFight = false;

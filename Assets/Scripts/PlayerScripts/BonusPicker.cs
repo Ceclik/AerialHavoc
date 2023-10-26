@@ -7,6 +7,7 @@ public class BonusPicker : MonoBehaviour
     [SerializeField] private int increaseHealthBonusFromPancake;
     [SerializeField] private int increaseEnergyValueFromCoffee;
     [SerializeField] private int increaseEnergyValueFromSpotify;
+    [SerializeField] private AudioSource bonusPickSound;
     
     private Player _player;
     private PhotonView _view;
@@ -19,27 +20,34 @@ public class BonusPicker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Pillow(Clone)")
+        if (_view.IsMine)
         {
-            SetMentalHealth(increaseHealthValueFromPillow);
-            other.GetComponent<BonusDestroyer>().DestroyWhenHit();
-        }
+            if (other.name == "Pillow(Clone)")
+            {
+                SetMentalHealth(increaseHealthValueFromPillow);
+                other.GetComponent<BonusDestroyer>().DestroyWhenHit();
+                bonusPickSound.Play();
+            }
 
-        if (other.name == "Spotify(Clone)")
-        {
-            SetEnergy(increaseEnergyValueFromSpotify);
-            other.GetComponent<BonusDestroyer>().DestroyWhenHit();
-        }
+            else if (other.name == "Spotify(Clone)")
+            {
+                SetEnergy(increaseEnergyValueFromSpotify);
+                other.GetComponent<BonusDestroyer>().DestroyWhenHit();
+                bonusPickSound.Play();
+            }
 
-        if (other.name == "CoffeeCup(Clone)")
-        {
-            SetEnergy(increaseEnergyValueFromCoffee);
-            other.GetComponent<BonusDestroyer>().DestroyWhenHit();
-        }
-        if (other.name == "Pancake(Clone)")
-        {
-            SetEnergy(increaseHealthBonusFromPancake);
-            other.GetComponent<BonusDestroyer>().DestroyWhenHit();
+            else if (other.name == "CoffeeCup(Clone)")
+            {
+                SetEnergy(increaseEnergyValueFromCoffee);
+                other.GetComponent<BonusDestroyer>().DestroyWhenHit();
+                bonusPickSound.Play();
+            }
+            else if (other.name == "Pancake(Clone)")
+            {
+                SetEnergy(increaseHealthBonusFromPancake);
+                other.GetComponent<BonusDestroyer>().DestroyWhenHit();
+                bonusPickSound.Play();
+            }
         }
     }
 
