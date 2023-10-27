@@ -14,11 +14,11 @@ public class AnimationSwitcher : MonoBehaviour
         _player = GetComponent<Animator>();
         
         if(_view.IsMine)
-            _player.SetTrigger("Yurii");
+            _player.SetTrigger("Tatiana");
         else
         {
             if(_playersParent.childCount == 2)
-                _player.SetTrigger("Tatiana");
+                _player.SetTrigger("Yurii");
             else if(_playersParent.childCount == 3)
                 _player.SetTrigger("Emily");
         }

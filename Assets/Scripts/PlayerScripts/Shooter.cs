@@ -7,6 +7,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] private GameObject playerBullet;
     [SerializeField] private float reloadTime;
     [SerializeField] private AudioSource shootSound;
+    [SerializeField] private int howMuchScoreAddForKill;
     private ScoreCounter _scoreCounter;
     private Button[] _buttons;
     private Button _shootButton;
@@ -36,13 +37,18 @@ public class Shooter : MonoBehaviour
         {
             _deltaTime = 0;
             Vector3 spawnPosition = new Vector3(transform.position.x + 0.8f, transform.position.y, 0.0f);
-            RaycastHit2D hit = Physics2D.Raycast(spawnPosition, transform.up, 10f);
+            /*RaycastHit2D hit = Physics2D.Raycast(spawnPosition, transform.right, 10f);
+            Debug.DrawRay(spawnPosition, transform.right, Color.red, 10f);
             if (hit)
             {
+                
                 GameObject hittedObject = hit.collider.gameObject;
                 if (hittedObject.TryGetComponent<EnemyMover>(out EnemyMover mover))
-                    _scoreCounter.AddScore(20);
-            }
+                {
+                    Debug.LogError("in hit");
+                    _scoreCounter.AddScore(howMuchScoreAddForKill);
+                }
+            }*/
             shootSound.Play();
             _view.RPC("SpawnBullet", RpcTarget.MasterClient, spawnPosition, Quaternion.Euler(0.0f, 0.0f, -90.0f));
         }

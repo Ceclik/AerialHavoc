@@ -7,48 +7,54 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> enemiesVariants;
     [SerializeField] private GameObject kukin;
-    [SerializeField] private float deltaSpawnTime;
+    [SerializeField] public float deltaSpawnTime;
+    public float StartDeltaSpawnTime { get; private set; }
     [SerializeField] private float deltaSpawnTimeDecreaseValue;
-    [SerializeField] public int howOftenDecreaseDeltaSpawnTime;
+    public int howOftenDecreaseDeltaSpawnTime;
     [SerializeField] private float minimalDeltaSpawnTime;
     [SerializeField] private int maxAmountOfAliveEnemies;
     [SerializeField] StartGameCondtions game;
     [SerializeField] private float deltaBossFightTime;
-    [SerializeField] private AudioSource soundTrack;
+    [SerializeField] public AudioSource SoundTrack;
     public AudioSource BossfightSoundtrack;
-    [HideInInspector] public float RunningTime { get; set; }
-    [HideInInspector] public int TargetRunningTime { get; set; }
+    public float RunningTime { get; set; }
+    public int TargetRunningTime { get; set; }
     private GameObject _spawnedEnemy;
+    private PhotonView _view;
 
     public bool IsBossFight { get; set; }
-    private bool _isSoundtrackPlaying;
+    public bool IsSoundtrackPlaying { get; set; }
 
     private void Update()
     {
-        if (game.IsStarted && !IsBossFight && !_isSoundtrackPlaying)
+        if (game.IsStarted && !IsBossFight && !IsSoundtrackPlaying)
         {
-            soundTrack.Play();
-            _isSoundtrackPlaying = true;
+            SoundTrack.Play();
+            IsSoundtrackPlaying = true;
         }
 
 
-        RunningTime += Time.deltaTime;
-        if (deltaSpawnTime < minimalDeltaSpawnTime)
-            deltaSpawnTime = minimalDeltaSpawnTime;
-        if (RunningTime > TargetRunningTime && deltaSpawnTime > minimalDeltaSpawnTime)
+        if (game.IsStarted)
         {
-            TargetRunningTime += howOftenDecreaseDeltaSpawnTime;
-            deltaSpawnTime -= deltaSpawnTimeDecreaseValue;
+            RunningTime += Time.deltaTime;
+            if (deltaSpawnTime < minimalDeltaSpawnTime)
+                deltaSpawnTime = minimalDeltaSpawnTime;
+            if (RunningTime > TargetRunningTime && deltaSpawnTime > minimalDeltaSpawnTime)
+            {
+                TargetRunningTime += howOftenDecreaseDeltaSpawnTime;
+                deltaSpawnTime -= deltaSpawnTimeDecreaseValue;
+            }
         }
-        
-        
+
         if(RunningTime > deltaBossFightTime && PhotonNetwork.IsMasterClient && game.IsStarted && !IsBossFight)
             SpawnKukin();
     }
     private void Awake()
     {
-        _isSoundtrackPlaying = false;
+        _view = GetComponent<PhotonView>();
+        IsSoundtrackPlaying = false;
         IsBossFight = false;
+        StartDeltaSpawnTime = deltaSpawnTime;
         TargetRunningTime = howOftenDecreaseDeltaSpawnTime;
         RunningTime = 0;
         StartCoroutine(Spawner());
@@ -73,11 +79,17 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnKukin()
     {
-        _isSoundtrackPlaying = false;
-        soundTrack.Stop();
+        _view.RPC("StartBossFightSoundtrack", RpcTarget.AllBuffered);
+        PhotonNetwork.Instantiate(kukin.name, new Vector3(7.0f, 0.0f, 0.0f), Quaternion.identity);
+    }
+
+    [PunRPC]
+    public void StartBossFightSoundtrack()
+    {
         IsBossFight = true;
+        IsSoundtrackPlaying = false;
+        SoundTrack.Stop();
         BossfightSoundtrack.Play();
         BossfightSoundtrack.loop = true;
-        PhotonNetwork.Instantiate(kukin.name, new Vector3(7.0f, 0.0f, 0.0f), Quaternion.identity);
     }
 }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6111915247254104893}
   - component: {fileID: 2493402129249257835}
   - component: {fileID: -6177218848509070843}
-  - component: {fileID: -5613621820166452176}
   - component: {fileID: 515876537730084406}
   - component: {fileID: 2559716826858152762}
   - component: {fileID: 6072998062795934273}
@@ -135,21 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd330103f2395c4ab8ec766262b6333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugDeathAllow: 0
+  debugDeathAllow: 1
   thirdPlaceRatingDecreaseValue: 20
   firstPlaceRatingIncreaseValue: 20
---- !u!114 &-5613621820166452176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52553087552047135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 551ce294e7313d24c9e18162d09598d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &515876537730084406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +232,7 @@ MonoBehaviour:
   playerBullet: {fileID: 2423616883354653032, guid: 8f68a44604e5fee40b438f3ec9246b4b, type: 3}
   reloadTime: 0.5
   shootSound: {fileID: -5286280905207688299}
+  howMuchScoreAddForKill: 0
 --- !u!114 &1447072812950627416
 MonoBehaviour:
   m_ObjectHideFlags: 0

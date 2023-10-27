@@ -45,6 +45,10 @@ MonoBehaviour:
   - DestroyBonus
   - SpawnEnemyBullet
   - DestroyKukin
+  - StartBossFightSoundtrack
+  - StartNormalSoundTrack
+  - PlayKukinSound
+  - PlayDestroyEffects
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -18,12 +18,27 @@ public class KukinDestroyer : MonoBehaviour
     {
         if (_dmitro.Health <= 0)
         {
-            _enemySpawner.BossfightSoundtrack.Stop();
-            _enemySpawner.RunningTime = 0;
-            _enemySpawner.TargetRunningTime = _enemySpawner.howOftenDecreaseDeltaSpawnTime;
-            _enemySpawner.IsBossFight = false;
+            _view.RPC("StartNormalSoundTrack", RpcTarget.AllBuffered);
             _view.RPC("DestroyKukin", RpcTarget.MasterClient);
         }
+    }
+
+    [PunRPC]
+    public void StartNormalSoundTrack()
+    {
+        _enemySpawner.IsBossFight = false;
+        _enemySpawner.BossfightSoundtrack.Stop();
+        _enemySpawner.SoundTrack.Play();
+        _enemySpawner.IsSoundtrackPlaying = true;
+    }
+
+    private void OnDestroy()
+    {
+        _enemySpawner.IsBossFight = false;
+        _enemySpawner.BossfightSoundtrack.Stop();
+        _enemySpawner.RunningTime = 0;
+        _enemySpawner.deltaSpawnTime = _enemySpawner.StartDeltaSpawnTime;
+        _enemySpawner.TargetRunningTime = _enemySpawner.howOftenDecreaseDeltaSpawnTime;
     }
 
     [PunRPC]

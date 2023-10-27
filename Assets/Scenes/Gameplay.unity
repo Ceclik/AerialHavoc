@@ -359,6 +359,7 @@ GameObject:
   - component: {fileID: 130582567}
   - component: {fileID: 130582569}
   - component: {fileID: 130582568}
+  - component: {fileID: 130582570}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -406,7 +407,7 @@ MonoBehaviour:
   maxAmountOfAliveEnemies: 20
   game: {fileID: 2142834551}
   deltaBossFightTime: 20
-  soundTrack: {fileID: 130582569}
+  SoundTrack: {fileID: 130582569}
   BossfightSoundtrack: {fileID: 130582568}
 --- !u!82 &130582568
 AudioSource:
@@ -600,6 +601,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &130582570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130582565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &192171247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,7 +2044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1207264177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8166,7 +8189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31e2d232d6d3e8488f9bcc6fbb0cdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minAmountOfPlayersToStart: 1
+  minAmountOfPlayersToStart: 3
   players: {fileID: 592226081}
 --- !u!4 &2142834552
 Transform:

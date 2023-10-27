@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyDestroyer : MonoBehaviour
 {
     [SerializeField] private float deltaDestroyTimeIfNotKilled;
-    [SerializeField] private AudioSource destroySound;
     private float _aliveTime;
     private PhotonView _view;
     private ParticleSystem _enemyGreenDestroyEffect;
@@ -27,9 +26,7 @@ public class EnemyDestroyer : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerBullet>(out PlayerBullet bullet))
         {
-            destroySound.Play();
-            _enemyGreenDestroyEffect.transform.position = transform.position;
-            _enemyGreenDestroyEffect.Play();
+            _view.RPC("PlayDestroyEffects", RpcTarget.AllBuffered);
             _view.RPC("DestroyEnemy", RpcTarget.MasterClient);
         }
 
@@ -37,6 +34,13 @@ public class EnemyDestroyer : MonoBehaviour
             _view.RPC("DestroyEnemy", RpcTarget.MasterClient);
     }
 
+    [PunRPC]
+    public void PlayDestroyEffects()
+    {
+        _enemyGreenDestroyEffect.transform.position = transform.position;
+        _enemyGreenDestroyEffect.Play();
+    }
+    
     [PunRPC]
     public void DestroyEnemy()
     {

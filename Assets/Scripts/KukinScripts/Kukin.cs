@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class Kukin : MonoBehaviour
@@ -5,9 +6,11 @@ public class Kukin : MonoBehaviour
     public int Health { get; private set; }
     [SerializeField] private int decreaseHealthFromBullet;
     [SerializeField] private AudioSource kukinHurtSound;
+    private PhotonView _view;
 
     private void Start()
     {
+        _view = GetComponent<PhotonView>();
         Health = 100;
     }
 
@@ -15,8 +18,14 @@ public class Kukin : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerBullet>(out PlayerBullet bullet))
         {
-            kukinHurtSound.Play();
+            _view.RPC("PlayKukinSound", RpcTarget.AllBuffered);
             Health -= decreaseHealthFromBullet;
         }
+    }
+
+    [PunRPC]
+    public void PlayKukinSound()
+    {
+        kukinHurtSound.Play();
     }
 }
