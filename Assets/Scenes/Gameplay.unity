@@ -400,11 +400,11 @@ MonoBehaviour:
   - {fileID: 1315777623347919119, guid: c4189899ded5c604fbdd1a3ee7161bbc, type: 3}
   - {fileID: 1315777623347919119, guid: b2d5cb423bb00214489a930f2463171a, type: 3}
   kukin: {fileID: 7344804297887061740, guid: ee47c16ab3bf11b4397384a1d2846eb2, type: 3}
-  deltaSpawnTime: 4
+  deltaSpawnTime: 2.7
   deltaSpawnTimeDecreaseValue: 0.2
   howOftenDecreaseDeltaSpawnTime: 7
   minimalDeltaSpawnTime: 0.5
-  maxAmountOfAliveEnemies: 20
+  maxAmountOfAliveEnemies: 13
   game: {fileID: 2142834551}
   deltaBossFightTime: 20
   SoundTrack: {fileID: 130582569}
@@ -796,8 +796,8 @@ MonoBehaviour:
   - {fileID: 8296522884774226518, guid: bb76aed371cd7364782cfd0e61ac273a, type: 3}
   - {fileID: 3850714358844647429, guid: 55ca7ab6dad211d4f85ae1db22b3829a, type: 3}
   - {fileID: 8296522884774226518, guid: c370675d3649f184799483963f9782cd, type: 3}
-  deltaSpawnTime: 3
-  maxAmountOfSpawnedBonuses: 15
+  deltaSpawnTime: 4.5
+  maxAmountOfSpawnedBonuses: 10
   game: {fileID: 2142834551}
 --- !u!4 &225154894
 Transform:
